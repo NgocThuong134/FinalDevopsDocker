@@ -73,24 +73,24 @@ Dự án này hướng dẫn cách tạo một server bằng Golang sử dụng 
          defer client.Disconnect(context.TODO())
      ```
 
-4. **Định nghĩa các route cần thiết, ví dụ như route `/api`.**
+4. **Định nghĩa các route cần thiết, ví dụ như route `/hello`.**
    - Tạo một route đơn giản để kiểm tra server hoạt động:
 
      ```go
-         router.GET("/api", func(c *gin.Context) {
+         router.GET("/hello", func(c *gin.Context) {
              c.JSON(http.StatusOK, gin.H{"message": "Hello from Go server!"})
          })
      ```
 
-   - Cuối cùng, khởi động server trên cổng 8080:
+   - Cuối cùng, khởi động server trên cổng 6080:
 
      ```go
-         router.Run(":8080")
+         router.Run(":6080")
      }
      ```
 
 ### Kết Luận
-Sau khi hoàn tất các bước trên, bạn sẽ có một server cơ bản hoạt động với Gin và MongoDB. Bạn có thể mở terminal và chạy lệnh `go run main.go` để khởi động server. Khi server đang chạy, bạn có thể truy cập [http://localhost:8080/api](http://localhost:8080/api) để kiểm tra phản hồi từ server.
+Sau khi hoàn tất các bước trên, bạn sẽ có một server cơ bản hoạt động với Gin và MongoDB. Bạn có thể mở terminal và chạy lệnh `go run main.go` để khởi động server. Khi server đang chạy, bạn có thể truy cập [http://localhost:6080/hello](http://localhost:6080/hello) để kiểm tra phản hồi từ server.
 
 ## Viết Dockerfile cho Server
 
@@ -101,8 +101,34 @@ Sau khi hoàn tất các bước trên, bạn sẽ có một server cơ bản ho
 
 ## Tạo Client bằng React
 
-1. Sử dụng Create React App để khởi tạo một ứng dụng React mới.
-2. Tạo các component và cấu hình ứng dụng như mong muốn.
+Để tạo client bằng React, bạn có thể làm theo các bước sau:
+
+1. **Khởi tạo ứng dụng React mới.**
+   - Mở terminal và điều hướng đến thư mục mà bạn muốn tạo ứng dụng.
+   - Sử dụng Create React App để khởi tạo một ứng dụng mới bằng lệnh:
+
+     ```bash
+     npx create-react-app client
+     ```
+
+   - Lệnh này sẽ tạo ra một thư mục `client` với cấu trúc cơ bản cho một ứng dụng React.
+
+2. **Tạo các component và cấu hình ứng dụng.**
+   - **Chỉnh sửa cấu trúc ứng dụng**: Mở thư mục `client/src` và bắt đầu tạo các component mới trong thư mục `components`. 
+   - **Tạo giao diện**: Sử dụng các component để xây dựng giao diện người dùng. Bạn có thể tạo các component như Header, Footer, và các phần khác của ứng dụng.
+   - **Kết nối với server**: Sử dụng `fetch` hoặc thư viện như Axios để gửi yêu cầu đến server Golang. Đảm bảo rằng bạn xử lý dữ liệu nhận được và cập nhật trạng thái của ứng dụng.
+
+3. **Chạy ứng dụng.**
+   - Sau khi cấu hình xong, bạn có thể chạy ứng dụng bằng lệnh:
+
+     ```bash
+     npm start
+     ```
+
+   - Ứng dụng sẽ tự động mở trong trình duyệt tại [http://localhost:3000], nơi bạn có thể thấy giao diện của ứng dụng.
+
+### Kết Luận
+Sau khi hoàn tất các bước trên, bạn sẽ có một client React cơ bản có thể giao tiếp với server Golang. Bạn có thể tiếp tục mở rộng và tùy chỉnh ứng dụng theo nhu cầu của mình.
 
 ## Viết Dockerfile cho Client
 
@@ -123,6 +149,7 @@ Sau khi hoàn tất các bước trên, bạn sẽ có một server cơ bản ho
 
    ```bash
    git clone https://github.com/NgocThuong134/FinalDevopsDocker.git
+   ```bash
    cd FinalDevopsDocker
 2. **Chạy Docker Compose:**
 
