@@ -149,8 +149,10 @@ Sau khi hoàn tất các bước trên, bạn sẽ có một client React cơ b�
 
    ```bash
    git clone https://github.com/NgocThuong134/FinalDevopsDocker.git
+   ```
    ```bash
    cd FinalDevopsDocker
+   ```
 2. **Chạy Docker Compose:**
 
    Sử dụng lệnh sau để xây dựng và chạy tất cả các container được định nghĩa trong `docker-compose.yml`:
