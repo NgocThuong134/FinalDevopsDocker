@@ -13,10 +13,84 @@ Dự án này hướng dẫn cách tạo một server bằng Golang sử dụng 
 
 ## Tạo Server bằng Golang
 
-1. Tạo một tệp `main.go` cho server.
-2. Cài đặt Gin và MongoDB.
-3. Cấu hình CORS cho server và kết nối với MongoDB.
-4. Định nghĩa các route cần thiết, ví dụ như route `/api`.
+Để tạo server bằng Golang với Gin và MongoDB, bạn có thể làm theo các bước sau:
+
+1. **Tạo một tệp `main.go` cho server.**
+   - Tạo một thư mục mới cho dự án server của bạn, ví dụ: `server`.
+   - Trong thư mục này, tạo một tệp có tên `main.go`. Đây sẽ là tệp chính của ứng dụng.
+
+2. **Cài đặt Gin và MongoDB.**
+   - Mở terminal và điều hướng đến thư mục dự án server của bạn.
+   - Khởi tạo một module Go mới:
+
+     ```bash
+     go mod init server
+     ```
+
+   - Cài đặt các gói cần thiết cho Gin và MongoDB:
+
+     ```bash
+     go get -u github.com/gin-gonic/gin
+     go get -u go.mongodb.org/mongo-driver/mongo
+     go get -u github.com/gin-contrib/cors
+     ```
+
+3. **Cấu hình CORS cho server và kết nối với MongoDB.**
+   - Trong tệp `main.go`, bắt đầu bằng việc nhập các gói cần thiết:
+
+     ```go
+     package main
+
+     import (
+         "context"
+         "github.com/gin-gonic/gin"
+         "github.com/gin-contrib/cors"
+         "go.mongodb.org/mongo-driver/mongo"
+         "go.mongodb.org/mongo-driver/mongo/options"
+         "net/http"
+     )
+     ```
+
+   - Tiếp theo, trong hàm `main`, cấu hình Gin và CORS:
+
+     ```go
+     func main() {
+         router := gin.Default()
+
+         // Cấu hình CORS
+         router.Use(cors.Default())
+     ```
+
+   - Kết nối đến MongoDB:
+
+     ```go
+         // Kết nối MongoDB
+         clientOptions := options.Client().ApplyURI("mongodb://mongo:27017")
+         client, err := mongo.Connect(context.TODO(), clientOptions)
+         if err != nil {
+             panic(err)
+         }
+         defer client.Disconnect(context.TODO())
+     ```
+
+4. **Định nghĩa các route cần thiết, ví dụ như route `/api`.**
+   - Tạo một route đơn giản để kiểm tra server hoạt động:
+
+     ```go
+         router.GET("/api", func(c *gin.Context) {
+             c.JSON(http.StatusOK, gin.H{"message": "Hello from Go server!"})
+         })
+     ```
+
+   - Cuối cùng, khởi động server trên cổng 8080:
+
+     ```go
+         router.Run(":8080")
+     }
+     ```
+
+### Kết Luận
+Sau khi hoàn tất các bước trên, bạn sẽ có một server cơ bản hoạt động với Gin và MongoDB. Bạn có thể mở terminal và chạy lệnh `go run main.go` để khởi động server. Khi server đang chạy, bạn có thể truy cập [http://localhost:8080/api](http://localhost:8080/api) để kiểm tra phản hồi từ server.
 
 ## Viết Dockerfile cho Server
 
